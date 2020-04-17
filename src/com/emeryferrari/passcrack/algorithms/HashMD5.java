@@ -1,4 +1,4 @@
-package com.emeryferrari.passcrack;
+package com.emeryferrari.passcrack.algorithms;
 import java.security.*;
 import javax.xml.bind.*;
 public class HashMD5 {
