@@ -16,6 +16,46 @@ public class Passcrack {
 			if (args[2].equals("-s")) {
 				GVars.shouldPrint = true;
 			}
+			Passcrack.run(); // FIXED
+		} else if (args.length == 4) {
+			GVars.wordlistPath = args[0];
+			GVars.inputPath = args[1];
+			if (args[2].equals("-a")) {
+				try {
+					GVars.id = Integer.parseInt(args[3]);
+				} catch (NumberFormatException ex) {
+					Passcrack.printUsage();
+				}
+			}
+			Passcrack.run();
+		} else if (args.length == 5) {
+			GVars.wordlistPath = args[0];
+			GVars.inputPath = args[1];
+			if (args[2].equals("-a")) {
+				try {
+					GVars.id = Integer.parseInt(args[3]);
+				} catch (NumberFormatException ex) {
+					Passcrack.printUsage();
+				}
+				if (args[4].equals("-s")) {
+					GVars.shouldPrint = true;
+				} else {
+					Passcrack.printUsage();
+				}
+			} else if (args[2].equals("-s")) {
+				GVars.shouldPrint = true;
+				if (args[3].equals("-a")) {
+					try {
+						GVars.id = Integer.parseInt(args[4]);
+					} catch (NumberFormatException ex) {
+						Passcrack.printUsage();
+					}
+				} else {
+					Passcrack.printUsage();
+				}
+			} else {
+				Passcrack.printUsage();
+			}
 		} else {
 			Passcrack.printUsage();
 		}
@@ -51,7 +91,7 @@ public class Passcrack {
 			System.out.print("\r" + total + "/" + size + " entries hashed...");
 			ArrayList<String> hashes = new ArrayList<String>();
 			for (int i = 0; i < wordlist.size(); i++) {
-				hashes.add(HashMD5.hash(wordlist.get(i)));
+				hashes.add(HashController.hash(wordlist.get(i), GVars.id));
 				total++;
 				System.out.print("\r" + total + "/" + size + " entries hashed...                    ");
 			}
@@ -110,7 +150,11 @@ public class Passcrack {
 	private static void printUsage() {
 		System.out.println("Usage: java Passcrack wordlist input <options>");
 		System.out.println("Options:");
-		System.out.println("  -s: Enables use of CLI status indicators; makes calculation much slower\n");
+		System.out.println("  -s: Enables use of CLI status indicators; makes calculation much slower");
+		System.out.println("  -a algorithm_id: Uses a specific algorithm for bruteforcing, if not specified, program defaults to MD5\n");
+		System.out.println("Algorithm IDs:");
+		System.out.println("0: MD2");
+		System.out.println("1: MD5");
 		System.exit(1);
 	}
 }
