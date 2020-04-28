@@ -147,14 +147,18 @@ public class Passcrack {
 			}
 		}
 	}
-	private static void printUsage() {
+	static void printUsage() {
 		System.out.println("Usage: java Passcrack wordlist input <options>");
 		System.out.println("Options:");
 		System.out.println("  -s: Enables use of CLI status indicators; makes calculation much slower");
 		System.out.println("  -a algorithm_id: Uses a specific algorithm for bruteforcing, if not specified, program defaults to MD5\n");
 		System.out.println("Algorithm IDs:");
-		System.out.println("0: MD2");
-		System.out.println("1: MD5");
+		System.out.println("  0: MD2");
+		System.out.println("  1: MD5");
+		System.out.println("  2: SHA-1");
+		System.out.println("  3: SHA-256");
+		System.out.println("  4: SHA-384");
+		System.out.println("  5: SHA-512");
 		System.exit(1);
 	}
 }
